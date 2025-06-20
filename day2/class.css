@@ -1,0 +1,41 @@
+.header-links{
+    color: red;
+}
+.footer-links{
+    color: green;
+}
+
+
+.header-links, .footer-links{
+    font-weight: bold;
+    font-size: 40px;
+}
+
+
+a{
+    text-decoration: none;
+}
+
+section>p{
+    color:orange
+}
+div~p{
+    color:blue
+}
+
+.box{
+    width: 200px;
+    height:200px;
+    background-color: yellow;
+    transition:background-color 0.25s ease-in-out;
+}
+.box:hover{
+    background-color: green;
+}
+p::first-letter{
+    color: red;
+    font-size: 2em;
+}
+p{
+    color:red!important;
+}
