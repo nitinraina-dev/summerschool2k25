@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    @keyframes moveRight {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(100px); }
+    }
+    .animated-box {
+      width: 100px;
+      height: 100px;
+      background: violet;
+      animation: moveRight 2s infinite alternate;
+    }
+  </style>
+</head>
+<body>
+  <div class="animated-box"></div>
+</body>
+</html>

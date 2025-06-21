@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    p { color: green; }            /* Specificity: 0,0,1 */
+    .highlight { color: blue; }    /* Specificity: 0,1,0 */
+    #main { color: red; }          /* Specificity: 1,0,0 */
+  </style>
+</head>
+<body>
+  <p id="main" class="highlight">This text is red due to specificity.</p>
+</body>
+</html>

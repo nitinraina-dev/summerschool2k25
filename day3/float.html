@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    img {
+      float: left;
+      margin-right: 10px;
+    }
+    .clearfix::after {
+      content: "";
+      display: block;
+      clear: both;
+    }
+  </style>
+</head>
+<body>
+  <div class="clearfix">
+    <img src="https://via.placeholder.com/100" alt="float" />
+    <p>This text wraps around the image using float.</p>
+  </div>
+</body>
+</html>

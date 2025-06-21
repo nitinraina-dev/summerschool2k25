@@ -1,0 +1,34 @@
+
+.flex{
+    display: flex;
+
+}
+.left,.right{
+    width: 50%;
+    height: 100vh;
+    background-color: aquamarine;
+}
+.right{
+    background-color: lightcoral;
+}
+
+
+@media (max-width: 768px) {
+    .left, .right {
+        width: 100%;
+        height: 50vh;
+    }
+    .flex {
+        flex-direction: column;
+    }
+}
+@media (max-width: 425px) {
+    .left, .right {
+        width: 90%;
+        height: 50vh;
+    }
+    .flex {
+        flex-direction: column-reverse;
+    }
+}
+
