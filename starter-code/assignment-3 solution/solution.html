@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSS Mastery Assignment</title>
+  <style>
+    /* 🔸 CSS Variables */
+    :root {
+      --main-color: #4CAF50;
+      --secondary-color: #f0f0f0;
+      --padding: 20px;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--secondary-color);
+    }
+
+    header {
+      background: var(--main-color);
+      padding: var(--padding);
+      color: white;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      gap: 15px;
+    }
+
+    nav li {
+      display: inline;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+    }
+
+    main {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      padding: var(--padding);
+    }
+
+    .left, .right {
+      flex: 1;
+      background: white;
+      padding: var(--padding);
+    }
+
+    img {
+      float: left;
+      margin: 10px;
+      width: 100px;
+    }
+
+    .box-model {
+      border: 5px solid black;
+      padding: 10px;
+      margin: 10px;
+      background: #e0e0e0;
+    }
+
+    .position-example {
+      position: relative;
+      top: 20px;
+      left: 20px;
+      background: orange;
+      padding: 10px;
+    }
+
+    .transition-box {
+      background: coral;
+      transition: background 0.5s ease;
+      padding: 10px;
+    }
+
+    .transition-box:hover {
+      background: darkred;
+    }
+
+    .animated {
+      animation: slide 2s infinite alternate;
+      background: pink;
+      padding: 10px;
+    }
+
+    @keyframes slide {
+      from { transform: translateX(0); }
+      to { transform: translateX(100px); }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        background: #ccc;
+      }
+
+      main {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CSS Mastery Assignment</h1>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Gallery</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="left">
+      <h2>Main Content</h2>
+      <p>
+        <img src="https://via.placeholder.com/100" alt="sample" />
+        This text wraps around a floated image. Practice the box model, float,
+        and text layout here.
+      </p>
+
+      <div class="box-model">Box model area (margin, padding, border)</div>
+      <div class="position-example">Positioning (relative/absolute/sticky)</div>
+      <div class="transition-box">Hover to see transition</div>
+      <div class="animated">Animated Box</div>
+    </div>
+
+    <div class="right">
+      <h3>Sidebar</h3>
+      <p>This is your sidebar or extra content area.</p>
+    </div>
+  </main>
+
+  <footer style="background: #333; color: white; text-align: center; padding: 10px;">
+    &copy; 2025 CSS Assignment
+  </footer>
+</body>
+</html>
