@@ -103,3 +103,113 @@
 | 2024 | Latest ECMAScript (e.g. ES2024)    |
 
 ---
+
+
+## Compiled vs Interpreted vs JIT-Compiled (with Real Execution Models)
+
+| Feature                          | **Compiled (AOT)**                          | **Interpreted**                   | **JIT-Compiled (Hybrid)**                                              |
+| -------------------------------- | ------------------------------------------- | --------------------------------- | ---------------------------------------------------------------------- |
+| 🔧 **Translation Time**          | Before runtime                              | During runtime                    | During runtime (but with bytecode optimization)                        |
+| 🧠 **How Code is Processed**     | Whole program converted to machine code     | Code read & executed line by line | Code first converted to bytecode, then optimized parts to machine code |
+| 🚀 **Execution Speed**           | Fastest (direct native code)                | Slowest (line-by-line execution)  | Fast (optimized after warm-up)                                         |
+| 🛑 **When Runtime Errors Occur** | Never (compiled code fails at compile-time) | Only when a line is executed      | Same as interpreted: error only when line runs                         |
+| 🧪 **Error Detection**           | At compile time                             | At runtime (when line is reached) | Mixed — syntax errors early, runtime errors as executed                |
+| 📂 **Output**                    | Binary executable (`.exe`, `.out`)          | None                              | Bytecode + in-memory machine code                                      |
+| 📦 **Needs External Runtime?**   | No                                          | Yes (interpreter needed)          | Yes (VM like JVM or JS engine)                                         |
+| 🔁 **Optimizations**             | At compile time                             | None or minimal                   | Dynamic (during runtime, e.g., hot code paths)                         |
+| 🧳 **Portability**               | Low (platform-specific)                     | High (just need interpreter)      | High (write once, run anywhere with VM)                                |
+| 🧱 **Examples**                  | C, C++, Go, Rust                            | Python, Ruby, PHP, old JS         | Java, C#, modern JavaScript (V8, Chakra, etc.)                         |
+
+---
+
+## 🧠 Let’s Compare with **Concrete Examples**
+
+---
+
+### 🔹 **Compiled Language: C**
+
+```c
+#include <stdio.h>
+
+int main() {
+    printf("Hello");
+    return 0;
+}
+```
+
+* **Compilation:** `gcc file.c -o file`
+* **Execution:** `./file`
+* ❌ If there's a missing semicolon — you’ll get a compile-time error, and it won’t run at all.
+
+---
+
+### 🔹 **Interpreted Language: Python**
+
+```python
+print("Hello")
+print(10 / 0)   # Runtime error
+print("World")  # Won't run
+```
+
+* ✅ Runs line 1
+* ⚠️ Breaks only when division by 0 is **executed**
+* ❌ Line 3 never runs — execution stops at runtime error
+
+---
+
+### 🔹 **JIT-Compiled Language: JavaScript (V8)**
+
+```javascript
+console.log("Start");
+
+let x = 10 / 2;      // Fine
+let y = a + 1;       // ReferenceError at runtime
+console.log("End");  // Won’t run
+```
+
+* ✅ JS engine **parses** the whole file first.
+* ✅ Generates **bytecode** internally.
+* ✅ Starts executing top-down.
+* ❌ Breaks only **when the error line runs**, not before.
+* ⚡️ In real-time, JS engine may **optimize `x = 10/2`** using JIT.
+
+---
+
+## 🔥 Modern Reality
+
+> Most modern languages are **hybrids** — combining elements of compiling and interpreting:
+
+* Java: Compiles to bytecode → JIT compiles to machine code
+* JavaScript: Parses & interprets → Compiles "hot" code via JIT
+* Python: Bytecode (.pyc) + interpreted execution
+
+---
+
+## 🧠 Final Clarified Summary
+
+| Concept                             | Compiled (C/C++)     | Interpreted (Python) | JIT-Compiled (Java/JS)                                 |
+| ----------------------------------- | -------------------- | -------------------- | ------------------------------------------------------ |
+| Compiles Entire Code Before Running | ✅                    | ❌                    | ✅ (to bytecode)                                        |
+| Executes Line by Line               | ❌                    | ✅                    | ✅ (feels like it, but it’s compiled behind the scenes) |
+| Stops at Runtime Error              | ❌ (won’t run at all) | ✅                    | ✅                                                      |
+| Can Be Optimized at Runtime         | ❌                    | ❌                    | ✅                                                      |
+| Example Languages                   | C, Rust, Go          | Python, PHP          | Java, C#, JS (modern)                                  |
+
+---
+
+### 💬 Think of it like this:
+
+* **Compiled:**
+  🏗️ Build first, then run
+  (Fast, strict, optimized — but rigid)
+
+* **Interpreted:**
+  📜 Read and do each step as you go
+  (Flexible, easy — but slower)
+
+* **JIT-Compiled:**
+  🧠 Smart engine that learns what’s used and speeds it up
+  (Best of both worlds)
+
+---
+
