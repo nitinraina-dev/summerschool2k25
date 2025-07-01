@@ -1,4 +1,6 @@
 const el = document.getElementById('demo');
+console.log(el.innerText)
+console.log(el.textContent)
+console.log(el.innerHTML)
 
-console.log("innerText:", el.innerText);
-console.log("textContent:", el.textContent);
+el.innerHTML="changed html"
