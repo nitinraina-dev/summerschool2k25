@@ -1,9 +1,25 @@
-
-In JavaScript, **strict mode** is a way to opt in to a restricted version of the language. It was introduced in ECMAScript 5 (ES5) and helps you write **safer and more predictable code** by catching common mistakes and making silent errors throw exceptions.
+# JavaScript Complete Guide
+*A comprehensive guide covering strict mode, eval(), this keyword, and DOM manipulation*
 
 ---
 
-## 🔹 How to Enable Strict Mode
+## Table of Contents
+1. [JavaScript Strict Mode](#javascript-strict-mode)
+2. [The eval() Function](#the-eval-function)
+3. [Understanding 'this' in JavaScript](#understanding-this-in-javascript)
+4. [DOM Manipulation Fundamentals](#dom-manipulation-fundamentals)
+5. [Advanced DOM Topics](#advanced-dom-topics)
+6. [Event Handling](#event-handling)
+
+---
+
+## JavaScript Strict Mode
+
+### What is Strict Mode?
+
+In JavaScript, **strict mode** is a way to opt in to a restricted version of the language. It was introduced in ECMAScript 5 (ES5) and helps you write **safer and more predictable code** by catching common mistakes and making silent errors throw exceptions.
+
+### How to Enable Strict Mode
 
 ```js
 "use strict"; // At the top of your script or function
@@ -15,9 +31,7 @@ x = 10; // ❌ ReferenceError: x is not defined
 
 Without `"use strict"`, this would silently create a global variable.
 
----
-
-## 🔄 Difference: Normal Mode vs Strict Mode
+### Comparison: Normal Mode vs Strict Mode
 
 | Feature / Behavior                      | Normal Mode                          | Strict Mode                 |
 | --------------------------------------- | ------------------------------------ | --------------------------- |
@@ -30,49 +44,42 @@ Without `"use strict"`, this would silently create a global variable.
 | Octal literals (e.g., `0123`)           | Allowed                              | ❌ SyntaxError               |
 | Secures `eval()` usage                  | `eval` can create variables globally | Limited to local scope only |
 
----
+### Example Comparison
 
-## 🔍 Example Comparison
-
-### ✅ Normal Mode
-
+#### Normal Mode
 ```js
 x = 5; // No error, creates global variable
 console.log(x);
 ```
 
-### ❌ Strict Mode
-
+#### Strict Mode
 ```js
 "use strict";
 x = 5; // ReferenceError: x is not defined
 ```
 
----
-
-## ✅ Why Use Strict Mode?
+### Benefits of Using Strict Mode
 
 * Avoid bugs caused by undeclared variables
 * Makes code easier to debug
 * Prepares your code for future versions of JS
 * Disallows dangerous or confusing features
 
+---
 
-### 🔍 What is `eval()` in JavaScript?
+## The eval() Function
+
+### What is eval()?
 
 The `eval()` function takes a string and **executes it as JavaScript code**.
 
----
-
-### ✅ Syntax:
+### Syntax
 
 ```js
 eval(string);
 ```
 
----
-
-### 📌 Example:
+### Basic Example
 
 ```js
 let x = 10;
@@ -81,33 +88,25 @@ let result = eval("x + y"); // Evaluates the string as JS code
 console.log(result); // 30
 ```
 
----
-
-### 🧠 What it does:
+### How eval() Works
 
 * It **parses** the string.
 * Then **executes** it as if you wrote that code normally.
 
----
-
-### ❌ Why is `eval()` dangerous?
+### Why is eval() Dangerous?
 
 1. **Security risk** – Executing user-provided code can allow code injection.
 2. **Slow performance** – It prevents JavaScript engines from optimizing the code.
 3. **Hard to debug** – Dynamic code is harder to read and trace.
 
----
-
-### ❗ Avoid this:
+### What to Avoid
 
 ```js
 let userCode = "alert('Hacked!')";
 eval(userCode); // 🚨 BAD! Never do this with user input.
 ```
 
----
-
-### 🔒 Safer Alternatives:
+### Safer Alternatives
 
 | Task                      | Don't Use `eval` | Use Instead             |
 | ------------------------- | ---------------- | ----------------------- |
@@ -115,9 +114,7 @@ eval(userCode); // 🚨 BAD! Never do this with user input.
 | Compute expressions       | `eval("x + y")`  | ✅ Write logic directly  |
 | Dynamic function creation | `eval`           | ✅ `new Function(...)`   |
 
----
-
-### 📦 In strict mode:
+### eval() in Strict Mode
 
 * `eval` has **its own scope**.
 * Variables defined inside `eval` won't leak outside.
@@ -128,9 +125,7 @@ eval("let z = 100;");
 console.log(typeof z); // ReferenceError: z is not defined
 ```
 
----
-
-### 📌 Summary:
+### Summary
 
 | Feature     | `eval()`                                             |
 | ----------- | ---------------------------------------------------- |
@@ -141,35 +136,27 @@ console.log(typeof z); // ReferenceError: z is not defined
 
 ---
 
+## Understanding 'this' in JavaScript
 
-Let's dive **in-depth into `this` in JavaScript**, covering the core concepts, execution context, binding types, and real-world behavior across different environments.
-
----
-
-## 🔥 **What is `this` in JavaScript?**
+### What is 'this'?
 
 `this` is a **contextual keyword** that refers to the **object** from which a function was **called**, not necessarily where it was **defined**.
 
-Think of `this` as the identity of “who is calling me.”
+Think of `this` as the identity of "who is calling me."
 
----
+### Execution Context and 'this'
 
-## 🧠 **Execution Context and `this`**
-
-Every time code is run in JavaScript, it’s run inside an **execution context**. Each context has a `this` value.
+Every time code is run in JavaScript, it's run inside an **execution context**. Each context has a `this` value.
 
 Execution context types:
-
 * Global execution context
 * Function execution context
 * Eval execution context (rare)
 * Module execution context (in ES Modules)
 
----
+### How 'this' Works in Different Contexts
 
-## 📌 **How `this` Works in Different Contexts**
-
-### ✅ 1. **Global Context (Non-strict Mode)**
+#### 1. Global Context (Non-strict Mode)
 
 ```js
 console.log(this); // window (in browser)
@@ -180,12 +167,9 @@ console.log(this); // window (in browser)
 
 > In global context, `this` refers to the **global object**.
 
----
+#### 2. Function Context
 
-### ✅ 2. **Function Context**
-
-#### (a) **Non-strict Mode**
-
+##### Non-strict Mode
 ```js
 function show() {
   console.log(this);
@@ -193,8 +177,7 @@ function show() {
 show(); // window (in browser)
 ```
 
-#### (b) **Strict Mode**
-
+##### Strict Mode
 ```js
 "use strict";
 function show() {
@@ -203,11 +186,9 @@ function show() {
 show(); // undefined
 ```
 
-* In strict mode, `this` inside a function that’s not a method will be `undefined`.
+* In strict mode, `this` inside a function that's not a method will be `undefined`.
 
----
-
-### ✅ 3. **Object Method Context**
+#### 3. Object Method Context
 
 ```js
 const person = {
@@ -221,9 +202,7 @@ person.greet(); // "Nitin"
 
 * `this` refers to the object (`person`) because `person` is calling the function.
 
----
-
-### ✅ 4. **Arrow Functions**
+#### 4. Arrow Functions
 
 Arrow functions do **not bind their own `this`**. They inherit it from the **parent lexical scope**.
 
@@ -252,9 +231,7 @@ const person = {
 person.greet(); // "Nitin"
 ```
 
----
-
-### ✅ 5. **Class Context**
+#### 5. Class Context
 
 ```js
 class User {
@@ -271,14 +248,11 @@ user.sayHi(); // "Nitin"
 
 `this` refers to the **instance** of the class.
 
----
-
-## 📌 **Explicit Binding**
+### Explicit Binding
 
 You can change the value of `this` manually using:
 
-### 🔹 `call()`
-
+#### call()
 ```js
 function sayHello() {
   console.log(this.name);
@@ -287,16 +261,14 @@ const user = { name: "Nitin" };
 sayHello.call(user); // "Nitin"
 ```
 
-### 🔹 `apply()`
-
+#### apply()
 Same as `call`, but accepts an array of arguments.
 
 ```js
 sayHello.apply(user); // "Nitin"
 ```
 
-### 🔹 `bind()`
-
+#### bind()
 Returns a new function with `this` permanently bound.
 
 ```js
@@ -304,9 +276,7 @@ const boundFunc = sayHello.bind(user);
 boundFunc(); // "Nitin"
 ```
 
----
-
-## 📌 **Event Handlers**
+### Event Handlers
 
 ```js
 const btn = document.querySelector("button");
@@ -323,9 +293,7 @@ btn.addEventListener("click", () => {
 });
 ```
 
----
-
-## 🧪 **`this` in setTimeout / setInterval**
+### 'this' in setTimeout / setInterval
 
 ```js
 const obj = {
@@ -350,13 +318,9 @@ const obj2 = {
 obj2.print(); // 42
 ```
 
----
-Let’s break down **how `this` works inside `eval()`** — it depends on the **context** (`strict` mode vs normal mode, and where you call `eval()` from).
+### 'this' Inside eval()
 
----
-
-### 🔹 In **Non-Strict Mode**
-
+#### In Non-Strict Mode
 ```js
 let name = "Nitin";
 console.log(this); // window (in browser)
@@ -365,14 +329,10 @@ eval("console.log(this.name);"); // 👉 outputs "Nitin"
 ```
 
 ✅ Here:
-
 * `this` inside `eval()` refers to the **global object** (`window` in browsers).
 * So `this.name` is the same as `window.name`.
 
----
-
-### 🔹 In **Strict Mode**
-
+#### In Strict Mode
 ```js
 "use strict";
 
@@ -381,16 +341,12 @@ eval("console.log(this);"); // 👉 outputs `undefined`
 ```
 
 ❌ In strict mode:
-
 * `this` inside `eval()` is **not automatically bound to the global object**.
 * It becomes `undefined`, just like in strict mode functions.
 
----
+#### Inside a Function
 
-### 📌 Another Example: Inside a Function
-
-#### 🔸 Non-Strict Mode:
-
+##### Non-Strict Mode:
 ```js
 function test() {
   eval("console.log(this);");
@@ -398,8 +354,7 @@ function test() {
 test(); // 👉 outputs `window`
 ```
 
-#### 🔸 Strict Mode:
-
+##### Strict Mode:
 ```js
 "use strict";
 function test() {
@@ -408,21 +363,15 @@ function test() {
 test(); // 👉 outputs `undefined`
 ```
 
----
-
-### ✅ Summary
+### Summary
 
 | Context             | `this` inside `eval()`        |
 | ------------------- | ----------------------------- |
 | Global scope        | Global object (`window`)      |
-| Inside function     | Same as the function’s `this` |
+| Inside function     | Same as the function's `this` |
 | With `"use strict"` | `this` becomes `undefined`    |
 
----
-
-
-
-## 🧱 **Summary Table**
+### Complete 'this' Summary Table
 
 | Context                         | `this` refers to              |
 | ------------------------------- | ----------------------------- |
@@ -435,25 +384,24 @@ test(); // 👉 outputs `undefined`
 | Event handler (normal fn)       | Target element (e.g., button) |
 | Class method                    | Instance of the class         |
 
----
-
-## 💡 Real Tip to Master `this`
+### Pro Tip to Master 'this'
 
 Always ask:
-
 > Who is calling this function?
 
-Not “where was it defined?”, but “who is calling it?”
+Not "where was it defined?", but "who is calling it?"
 
 ---
-🎯 Goal: Change content, attributes, and styles using JavaScript
 
-### ✅ What is the DOM?
+## DOM Manipulation Fundamentals
+
+### What is the DOM?
+
 The **DOM (Document Object Model)** is a tree-like structure representing your webpage in memory. Every HTML tag becomes an object you can access and manipulate using JavaScript.
 
----
+### Core DOM Properties
 
-### 🧩 1. `innerText`, `textContent`, `innerHTML`
+#### innerText, textContent, innerHTML
 
 | Property        | Description                                          | Notes |
 |----------------|------------------------------------------------------|-------|
@@ -461,7 +409,7 @@ The **DOM (Document Object Model)** is a tree-like structure representing your w
 | `textContent`   | Gets/sets **all text**, including hidden ones        | Faster performance |
 | `innerHTML`     | Gets/sets the **HTML content** (including tags)      | Useful for inserting HTML |
 
-🔍 **Difference Example:**
+#### Difference Example
 
 ```html
 <p id="demo" style="display: none">Hi there!</p>
@@ -472,9 +420,9 @@ console.log(demo.innerText);   // Returns "", since text is hidden
 console.log(demo.textContent); // Returns "Hi there!"
 ```
 
----
+### Working with Attributes
 
-### 🧩 2. `setAttribute` and `getAttribute`
+#### setAttribute and getAttribute
 
 These are used to **add, modify, or read attributes** of HTML elements.
 
@@ -493,9 +441,7 @@ console.log(logo.getAttribute("alt")); // "New Logo"
 
 > You can also use `element.src`, `element.alt`, etc., but `setAttribute` is more flexible.
 
----
-
-### 🧩 3. Changing Styles Directly
+### Changing Styles Directly
 
 Every HTML element has a `style` property.
 
@@ -511,9 +457,7 @@ box.style.fontSize = "24px";
 > Use camelCase in JS for CSS properties:  
 > `background-color` becomes `backgroundColor`, `font-size` becomes `fontSize`.
 
----
-
-## 🧪 Full Code Example (with comments)
+### Complete Example - Basic DOM Manipulation
 
 ```html
 <!DOCTYPE html>
@@ -551,17 +495,7 @@ box.style.fontSize = "24px";
 </html>
 ```
 
----
-
-## 🧠 Bonus Tips
-
-- Don't overuse `innerHTML` unless needed — it can overwrite the whole element.
-- Use `classList.add()` and `classList.remove()` for adding/removing CSS classes instead of `style` when possible.
-- You can also use `style.cssText` to apply multiple styles at once (not recommended for beginners but good to know).
-
----
-
-## 📚 Recap (Day 1)
+### Key Takeaways
 
 | Feature         | Description |
 |----------------|-------------|
@@ -572,29 +506,25 @@ box.style.fontSize = "24px";
 | `getAttribute`  | Reads attribute |
 | `element.style` | Direct styling using JS |
 
----
+### Best Practices
 
-
-
-
-
-Let’s go **in-depth** into how you can **work with CSS classes using JavaScript**, which is a cleaner and more scalable approach than using `element.style`.
+- Don't overuse `innerHTML` unless needed — it can overwrite the whole element.
+- Use `classList.add()` and `classList.remove()` for adding/removing CSS classes instead of `style` when possible.
+- You can also use `style.cssText` to apply multiple styles at once (not recommended for beginners but good to know).
 
 ---
 
-## 🎨 JavaScript and CSS Classes
+## Advanced DOM Topics
 
-When you want to **add**, **remove**, or **toggle** styles dynamically, instead of changing `element.style`, it’s best to use CSS classes. You write the styling in CSS and just **toggle the class names in JS**.
+### Working with CSS Classes
 
----
+When you want to **add**, **remove**, or **toggle** styles dynamically, instead of changing `element.style`, it's best to use CSS classes. You write the styling in CSS and just **toggle the class names in JS**.
 
-## 🔹 `classList` – The Powerful Way to Work with Classes
+#### The classList Property
 
-Every DOM element has a property called `.classList`. It’s not a string — it’s a special object with **methods** to manage classes:
+Every DOM element has a property called `.classList`. It's not a string — it's a special object with **methods** to manage classes:
 
----
-
-### ✅ `element.classList.add("className")`
+#### classList.add("className")
 
 Adds a class to an element.
 
@@ -610,9 +540,7 @@ element.classList.add("highlight");
 }
 ```
 
----
-
-### ❌ `element.classList.remove("className")`
+#### classList.remove("className")
 
 Removes a class from an element.
 
@@ -620,11 +548,9 @@ Removes a class from an element.
 element.classList.remove("highlight");
 ```
 
----
+#### classList.toggle("className")
 
-### 🔁 `element.classList.toggle("className")`
-
-Adds the class **if it’s not present**, or removes it **if it is**.
+Adds the class **if it's not present**, or removes it **if it is**.
 
 ```js
 element.classList.toggle("highlight");
@@ -635,9 +561,7 @@ This is super useful for:
 - Like buttons
 - Expand/collapse actions
 
----
-
-### 🤔 `element.classList.contains("className")`
+#### classList.contains("className")
 
 Checks if the class is already there.
 
@@ -647,9 +571,7 @@ if (element.classList.contains("highlight")) {
 }
 ```
 
----
-
-## 💡 Bonus: `element.style.cssText`
+#### Alternative: element.style.cssText
 
 This allows you to apply multiple inline styles in one go.
 
@@ -661,9 +583,7 @@ element.style.cssText = "color: white; background-color: blue; font-size: 20px;"
 - You overwrite existing inline styles.
 - Less maintainable than using CSS classes.
 
----
-
-## 👕 Why Prefer `classList` Over `element.style`?
+#### Why Prefer classList Over element.style?
 
 | Using classList            | Using element.style         |
 |----------------------------|-----------------------------|
@@ -672,9 +592,7 @@ element.style.cssText = "color: white; background-color: blue; font-size: 20px;"
 | Easier to switch styles    | Hard to reset styles        |
 | Promotes separation of concerns | Mixes logic and presentation |
 
----
-
-## 🧪 Example: Dark Mode Toggle
+#### Example: Dark Mode Toggle
 
 ```html
 <style>
@@ -697,9 +615,7 @@ element.style.cssText = "color: white; background-color: blue; font-size: 20px;"
 </script>
 ```
 
----
-
-## 🛠️ Summary of Useful Methods
+#### Summary of classList Methods
 
 | Method                   | What it does                            |
 |--------------------------|-----------------------------------------|
@@ -708,29 +624,11 @@ element.style.cssText = "color: white; background-color: blue; font-size: 20px;"
 | `toggle("class")`        | Adds if not present, removes if present |
 | `contains("class")`      | Returns true/false if class is there    |
 
----
+### Creating and Removing Elements
 
-## 🧩 Challenge for Practice
+#### Core Concepts
 
-1. Create a box.
-2. Add buttons: “Add Red”, “Remove Red”, “Toggle Border”.
-3. Use `classList.add`, `remove`, and `toggle` to control styles.
-4. Define the classes in CSS (`.red`, `.bordered`, etc).
-
-
-
-
----
-
- **Creating and Removing Elements from the DOM**
-
-**🎯 Goal: Dynamically add or remove elements using JavaScript**
-
-
-
-## 📘 Core Concepts
-
-### 🧩 1. `document.createElement()`
+##### document.createElement()
 Creates a new HTML element in memory (not yet on the page).
 
 ```js
@@ -739,9 +637,7 @@ const newDiv = document.createElement("div");
 
 This gives you a new empty `<div>` element. You can then set its content, classes, styles, and finally place it into the page.
 
----
-
-### 🧩 2. `appendChild()`  
+##### appendChild()  
 Adds a new child **at the end** of a parent element.
 
 ```js
@@ -749,9 +645,7 @@ const parent = document.getElementById("container");
 parent.appendChild(newDiv);
 ```
 
----
-
-### 🧩 3. `insertAdjacentHTML(position, html)`
+##### insertAdjacentHTML(position, html)
 A powerful method to insert HTML relative to a given element without replacing it.
 
 **Positions**:
@@ -766,9 +660,7 @@ element.insertAdjacentHTML("beforeend", "<p>Hi!</p>");
 
 > Great for inserting HTML templates or multiple elements quickly.
 
----
-
-### 🧩 4. `remove()`  
+##### remove()  
 Removes the element from the DOM.
 
 ```js
@@ -777,16 +669,7 @@ element.remove();
 
 > The element must exist first. Often paired with a `click` event on a "delete" button.
 
----
-
-## 🛠️ Mini Project: **To-Do List**
-
-> ✅ Add items to the list  
-> ❌ Remove items on click
-
----
-
-### 🧪 Full Example Code (To-do List)
+#### Complete Example: To-Do List
 
 ```html
 <!DOCTYPE html>
@@ -852,17 +735,13 @@ element.remove();
 </html>
 ```
 
----
-
-## 🔍 Additional Tips
+#### Additional Tips
 
 - You can **clone nodes** using `.cloneNode(true)` for templating.
 - You can use `insertAdjacentHTML()` for inserting HTML faster than `createElement`+`appendChild`, but you lose the ability to attach event listeners directly.
 - Always **sanitize user input** if you're inserting into `innerHTML` to avoid security risks (like XSS).
 
----
-
-## 📚 Recap 
+#### Summary
 
 | Method                | Use                                 |
 |-----------------------|--------------------------------------|
@@ -873,31 +752,16 @@ element.remove();
 
 ---
 
-## 🧠 Quiz / Practice
+## Event Handling
 
-1. What’s the difference between `createElement` and `insertAdjacentHTML`?
-2. How would you add an `<img>` tag to a div using JavaScript?
-3. How do you safely remove a list item from a list?
+### Introduction to DOM Events
 
----
+Handle user interactions with events like click, keydown, etc.
 
+### Core Event Concepts
 
-
-
-Sweet, let’s dive into the final and **most interactive** day of your DOM journey!
-
-
----
-
-
-**🎯 Goal: Handle user interactions with events like click, keydown, etc.**
-
-
-
-## 📘 Core Concepts
-
-### 🧩 1. `addEventListener(event, callback)`
-Used to “listen” for an event on an element.
+#### addEventListener(event, callback)
+Used to "listen" for an event on an element.
 
 ```js
 button.addEventListener("click", function() {
@@ -907,9 +771,7 @@ button.addEventListener("click", function() {
 
 ✅ You can use arrow functions, named functions, or anonymous functions.
 
----
-
-### 🧩 2. Common Events You’ll Use:
+#### Common Events
 
 | Event      | Triggered When...                        |
 |------------|------------------------------------------|
@@ -920,9 +782,7 @@ button.addEventListener("click", function() {
 | `input`    | Input field value changes (live typing)  |
 | `change`   | Input value changes and loses focus      |
 
----
-
-### 🧩 3. Event Object (`event` or `e`)
+### The Event Object
 
 Every event handler receives an object with **info** about the event:
 
@@ -932,46 +792,117 @@ element.addEventListener("click", function(event) {
 });
 ```
 
----
+#### Common Event Object Properties
 
-### 🧩 4. Event Bubbling (and Delegation)
+| Property | Description |
+|---------|-------------|
+| `type` | Type of event (`click`, `keydown`, etc.) |
+| `target` | The actual element that triggered the event |
+| `currentTarget` | The element the event handler is attached to |
+| `preventDefault()` | Stops the default browser behavior |
+| `stopPropagation()` | Stops the event from bubbling up the DOM |
+| `clientX`, `clientY` | X/Y coordinates of the mouse event |
+| `key`, `keyCode` | Key pressed (for keyboard events) |
 
-#### Bubbling:
-Events **start from the innermost** element and **bubble outward**.
-
-```html
-<div id="outer">
-  <button id="inner">Click me</button>
-</div>
-```
-
-If both `div` and `button` have click listeners, both will fire unless stopped.
-
-#### Delegation:
-Use **a parent** to handle clicks on multiple children (like dynamic elements):
+#### Example with Event Properties
 
 ```js
-list.addEventListener("click", function(e) {
+document.getElementById("btn").addEventListener("click", function(e) {
+  console.log("Type:", e.type);                    // "click"
+  console.log("Target:", e.target);                // the clicked element
+  console.log("Current Target:", e.currentTarget); // element with the handler
+});
+```
+
+### Event Delegation
+
+Event Delegation is a technique where you **attach a single event listener to a parent element**, and use the `event.target` to handle events for child elements.
+
+#### Why Use Event Delegation?
+
+- Efficient when you have **many child elements** (like a list of items).
+- Useful when elements are added **dynamically** after the page loads.
+
+#### Event Delegation Example
+
+Suppose you have a list:
+```html
+<ul id="todoList">
+  <li>Buy milk</li>
+  <li>Learn JavaScript</li>
+  <li>Build projects</li>
+</ul>
+```
+
+Instead of adding event listeners to each `<li>`, do this:
+```js
+document.getElementById("todoList").addEventListener("click", function(e) {
   if (e.target.tagName === "LI") {
-    e.target.style.color = "blue";
+    console.log("Clicked:", e.target.textContent);
+    e.target.style.textDecoration = "line-through";
   }
 });
 ```
 
-✅ Very useful when you dynamically add/remove items (like to-do list).
+👉 Even if you add a new `<li>` later, it will still work!
 
----
+### Event Bubbling and Capturing
 
-## 🛠️ Mini Project: Events Playground
+#### What is Event Bubbling?
 
-We’ll build:
-1. A button that listens for `click`
-2. An input that logs keys (`keydown`)
-3. A list using **delegation** to handle item clicks
+When an event occurs on an element, it **bubbles up** the DOM tree — from the target element to its ancestors.
 
----
+#### Bubbling Example
 
-### 🧪 Full Code Example
+```html
+<div id="parent">
+  <button id="child">Click me</button>
+</div>
+```
+
+```js
+document.getElementById("parent").addEventListener("click", () => {
+  console.log("Parent clicked");
+});
+
+document.getElementById("child").addEventListener("click", () => {
+  console.log("Child clicked");
+});
+```
+
+When you click the button, output will be:
+```
+Child clicked
+Parent clicked
+```
+
+This is bubbling: the event fires on `#child` first, then `#parent`.
+
+#### Stopping Event Bubbling
+
+Use `stopPropagation()` to stop bubbling:
+```js
+document.getElementById("child").addEventListener("click", (e) => {
+  e.stopPropagation();
+  console.log("Child clicked");
+});
+```
+
+Now, clicking the button won't trigger the parent's handler.
+
+#### What is Event Capturing?
+
+Event capturing (also called "trickling") is the **opposite** of bubbling: the event starts from the top (root) and goes **down** to the target element.
+
+You can listen during the capturing phase by setting the third argument to `true`:
+
+```js
+document.getElementById("parent").addEventListener("click", () => {
+  console.log("Parent capturing");
+}, true);
+```
+
+### Complete Event Handling Example
 
 ```html
 <!DOCTYPE html>
@@ -1040,17 +971,13 @@ We’ll build:
 </html>
 ```
 
----
-
-## 🧠 Extra Tips
+### Additional Event Handling Tips
 
 - Use `e.preventDefault()` to stop default behavior (e.g. form submission).
 - Use `e.stopPropagation()` if you want to stop bubbling.
 - Debounce `keydown` if you want to avoid too many logs/actions (advanced).
 
----
-
-## 📚 Recap (Day 3)
+### Event Handling Summary
 
 | Topic               | Description                           |
 |---------------------|---------------------------------------|
@@ -1060,149 +987,7 @@ We’ll build:
 | Event Delegation    | Handle many items from parent         |
 | `e.preventDefault()`| Stop default (like form submission)   |
 
----
-
-## 🧪 Challenge:  
-Try this by yourself:
-
-1. Create a list (`ul`) and add a new list item on every keypress of `Enter`.
-2. Clicking a list item should remove it from the list.
-3. Make sure to use **event delegation** for click handling.
-
----
-Let’s go deep into **JavaScript events**, focusing on:
-
-1. **Event Object**
-2. **Event Delegation**
-3. **Event Bubbling (and Capturing)**
-
----
-
-## 🧠 1. Event Object (`event` or `e`)
-
-Whenever an event (like click, mouseover, keypress, etc.) occurs in JavaScript, the browser creates an **event object** that holds **all the information about that event**.
-
-### Example:
-```js
-document.getElementById("btn").addEventListener("click", function(event) {
-  console.log(event);
-});
-```
-
-### Common properties of the `event` object:
-
-| Property | Description |
-|---------|-------------|
-| `type` | Type of event (`click`, `keydown`, etc.) |
-| `target` | The actual element that triggered the event |
-| `currentTarget` | The element the event handler is attached to |
-| `preventDefault()` | Stops the default browser behavior |
-| `stopPropagation()` | Stops the event from bubbling up the DOM |
-| `clientX`, `clientY` | X/Y coordinates of the mouse event |
-| `key`, `keyCode` | Key pressed (for keyboard events) |
-
-### Example with properties:
-```js
-document.getElementById("btn").addEventListener("click", function(e) {
-  console.log("Type:", e.type);                    // "click"
-  console.log("Target:", e.target);                // the clicked element
-  console.log("Current Target:", e.currentTarget); // element with the handler
-});
-```
-
----
-
-## 🪄 2. Event Delegation
-
-Event Delegation is a technique where you **attach a single event listener to a parent element**, and use the `event.target` to handle events for child elements.
-
-### Why use it?
-
-- Efficient when you have **many child elements** (like a list of items).
-- Useful when elements are added **dynamically** after the page loads.
-
-### Example:
-Suppose you have a list:
-```html
-<ul id="todoList">
-  <li>Buy milk</li>
-  <li>Learn JavaScript</li>
-  <li>Build projects</li>
-</ul>
-```
-
-Instead of adding event listeners to each `<li>`, do this:
-```js
-document.getElementById("todoList").addEventListener("click", function(e) {
-  if (e.target.tagName === "LI") {
-    console.log("Clicked:", e.target.textContent);
-    e.target.style.textDecoration = "line-through";
-  }
-});
-```
-
-👉 Even if you add a new `<li>` later, it will still work!
-
----
-
-## 🌊 3. Event Bubbling (and Capturing)
-
-### What is Event Bubbling?
-
-When an event occurs on an element, it **bubbles up** the DOM tree — from the target element to its ancestors.
-
-### Example (Bubbling):
-```html
-<div id="parent">
-  <button id="child">Click me</button>
-</div>
-```
-
-```js
-document.getElementById("parent").addEventListener("click", () => {
-  console.log("Parent clicked");
-});
-
-document.getElementById("child").addEventListener("click", () => {
-  console.log("Child clicked");
-});
-```
-
-When you click the button, output will be:
-```
-Child clicked
-Parent clicked
-```
-
-This is bubbling: the event fires on `#child` first, then `#parent`.
-
-### Use `stopPropagation()` to stop bubbling:
-```js
-document.getElementById("child").addEventListener("click", (e) => {
-  e.stopPropagation();
-  console.log("Child clicked");
-});
-```
-
-Now, clicking the button won’t trigger the parent’s handler.
-
----
-
-### What is Capturing?
-
-Event capturing (also called "trickling") is the **opposite** of bubbling: the event starts from the top (root) and goes **down** to the target element.
-
-You can listen during the capturing phase by setting the third argument to `true`:
-
-```js
-document.getElementById("parent").addEventListener("click", () => {
-  console.log("Parent capturing");
-}, true);
-```
-
----
-
-## 📊 Quick Summary Table
+### Quick Summary Table
 
 | Concept         | Description |
 |----------------|-------------|
@@ -1214,3 +999,9 @@ document.getElementById("parent").addEventListener("click", () => {
 | `preventDefault()` | Stops default browser action (like link navigation) |
 
 ---
+
+## Conclusion
+
+This guide covers the essential JavaScript concepts from strict mode fundamentals to advanced DOM manipulation and event handling. Practice these concepts by building interactive web applications and experimenting with the provided examples.
+
+Remember: JavaScript is best learned through hands-on practice. Start with simple examples and gradually build more complex interactions as you become comfortable with these foundational concepts.
