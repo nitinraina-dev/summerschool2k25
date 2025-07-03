@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .dark-mode {
+            background-color: #111;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <button id="themeToggle">Toggle Theme</button>
+    <div id="container">Hello, world!</div>
+
+
+    <script>
+        const button = document.getElementById("themeToggle");
+        const container = document.getElementById("container");
+
+        button.addEventListener("click", () => {
+            container.classList.toggle("dark-mode");
+        });
+        const newDiv = document.createElement("div");
+
+        newDiv.innerHTML=`
+
+        <a href="https://google.com"> link to google</a>
+        
+        `
+        const parent = document.getElementById("container");
+
+
+        parent.appendChild(newDiv);
+
+        parent.insertAdjacentHTML("beforeend", "<p>Hi!</p>");
+
+    </script>
+</body>
+
+</html>

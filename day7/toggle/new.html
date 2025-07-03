@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #parent {
+            background-color: red;
+            width: 100vw;
+            height: 10vh;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div class="container" id="parent">
+        parent container
+        <p>hello</p>
+        <p>last</p>
+    </div> -->
+
+    <div id="parent">
+        <button id="child">Click me</button>
+    </div>
+
+
+
+
+    <ul id="todoList">
+        <li>Buy milk</li>
+        <li>Learn JavaScript</li>
+        <li>Build projects</li>
+    </ul>
+
+    <script>
+
+        // const parent = document.getElementById("parent");
+
+        // parent.addEventListener("click", (e) => {
+        //     console.log(e.target)
+        // })
+        // parent.insertAdjacentHTML("afterend", "<p>Hi!</p>");
+        // parent.remove()
+        document.getElementById("todoList").addEventListener("click", function (e) {
+            if (e.target.tagName === "LI") {
+                console.log("Clicked:", e.target.textContent);
+                e.target.style.textDecoration = "line-through";
+            }
+        });
+
+
+
+        // document.getElementById("parent").addEventListener("click", () => {
+        //     console.log("Parent clicked");
+        // });
+
+        document.getElementById("parent").addEventListener("click", () => {
+            console.log("Parent capturing");
+        }, true);
+        document.getElementById("child").addEventListener("click", () => {
+            console.log("Child clicked");
+        });
+
+        // document.getElementById("child").addEventListener("click", (e) => {
+        //     e.stopPropagation();
+        //     console.log("Child clicked");
+        // });
+
+    </script>
+</body>
+
+</html>
