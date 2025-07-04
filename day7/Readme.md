@@ -398,6 +398,76 @@ Not "where was it defined?", but "who is calling it?"
 ### What is the DOM?
 
 The **DOM (Document Object Model)** is a tree-like structure representing your webpage in memory. Every HTML tag becomes an object you can access and manipulate using JavaScript.
+The **DOM** is called **"DOM"** because it stands for **Document Object Model**.
+
+Let’s break it down:
+
+### 🧾 1. **Document**
+
+* Refers to the HTML (or XML) page loaded in the browser.
+* In the browser, the whole webpage is treated as a "document".
+
+```html
+<!DOCTYPE html>
+<html>
+  <head><title>My Page</title></head>
+  <body><h1>Hello</h1></body>
+</html>
+```
+
+This entire structure is the **document**.
+
+---
+
+### 🧱 2. **Object**
+
+* In JavaScript, everything is an object.
+* The DOM turns every part of the HTML document (like `<div>`, `<p>`, `<h1>`, etc.) into JavaScript objects so that you can interact with them using code.
+
+```js
+document.body; // This returns an object representing the <body> tag
+```
+
+---
+
+### 🌳 3. **Model**
+
+* It’s a **representation** (model) of the HTML page in **tree form** (called a "node tree").
+* Each element, attribute, or piece of text becomes a **node** in this tree.
+
+Example:
+
+```html
+<p>Hello</p>
+```
+
+DOM Tree:
+
+```
+Document
+└── html
+    └── body
+        └── p
+            └── "Hello"
+```
+
+---
+
+### 🔁 In short:
+
+**DOM = Document Object Model**
+
+* **Document** → the webpage
+* **Object** → each part of the page is turned into objects
+* **Model** → it's structured like a tree so it can be easily traversed and manipulated
+
+---
+
+If you ask:
+
+> 💬 Why is it called DOM?
+
+Because it’s a structured **model of the document** made of **objects** that can be changed with **JavaScript**.
 
 ### Core DOM Properties
 
