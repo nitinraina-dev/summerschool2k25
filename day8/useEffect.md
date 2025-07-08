@@ -1,71 +1,118 @@
+The `useEffect` hook in React is used to **perform side effects** in functional components. Side effects are things like:
 
-### 🧠 What is `useEffect`?
-
-`useEffect` is a **React Hook** used to run side effects in a component.
-
-Side effects are things like:
-
-* Fetching data
-* Setting up a timer
-* Updating the document title
-* Logging
+* Fetching data from an API
+* Setting up subscriptions or timers
+* Directly manipulating the DOM
+* Logging to the console
+* Updating the title of the page, etc.
 
 ---
 
-### 📘 Syntax:
+### 🧠 Syntax:
 
 ```jsx
 useEffect(() => {
-  // code to run after the component renders
+  // Your side effect logic here
+
+  return () => {
+    // Optional cleanup (runs before the effect runs again or when component unmounts)
+  };
 }, [dependencies]);
 ```
 
 ---
 
-### ✅ Simple Example: Change document title on button click
+### 🧪 Basic Example: Log on render
 
 ```jsx
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
-function TitleChanger() {
-  const [count, setCount] = useState(0);
-
-  // useEffect runs after every render when count changes
+function App() {
   useEffect(() => {
-    document.title = `You clicked ${count} times`;
-  }, [count]); // <- only run when count changes
+    console.log('Component rendered');
+  });
 
-  return (
-    <div>
-      <h1>You clicked {count} times</h1>
-      <button onClick={() => setCount(count + 1)}>
-        Click me
-      </button>
-    </div>
-  );
+  return <h1>Hello World</h1>;
 }
-
-export default TitleChanger;
 ```
 
----
-
-### 🔍 What happens here:
-
-1. `useState(0)` — We start with `count = 0`.
-2. When you click the button, `count` increases.
-3. `useEffect` runs every time `count` changes and updates the **page title**.
+This logs on **every render** because there is **no dependency array**.
 
 ---
 
-### ⚠️ If you leave the dependency array empty:
+### ✅ Run Only Once (ComponentDidMount)
 
-```js
+```jsx
 useEffect(() => {
-  console.log("Runs once when component mounts");
+  console.log('Component mounted');
 }, []);
 ```
 
-This runs only **once** when the component first renders (good for fetching data on load).
+This runs **only once**, when the component mounts (like `componentDidMount` in class components).
+
+---
+
+### 🔁 Run When Dependency Changes
+
+```jsx
+const [count, setCount] = useState(0);
+
+useEffect(() => {
+  console.log(`Count changed to ${count}`);
+}, [count]);
+```
+
+This runs the effect **only when `count` changes**.
+
+---
+
+### ❌ Cleanup (Like `componentWillUnmount`)
+
+```jsx
+useEffect(() => {
+  const timer = setInterval(() => {
+    console.log('Tick');
+  }, 1000);
+
+  return () => {
+    clearInterval(timer);
+    console.log('Cleanup: Timer stopped');
+  };
+}, []);
+```
+
+This sets up a timer, and **cleans it up when the component unmounts**.
+
+---
+
+### ⚠️ Rules of `useEffect`
+
+1. Call `useEffect` at the top level of the component.
+2. Do not call it inside loops, conditions, or nested functions.
+3. You can have **multiple `useEffect` calls** in a single component.
+
+---
+
+### 🔍 Real-World Example: Fetching Data
+
+```jsx
+import { useEffect, useState } from 'react';
+
+function Users() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then(res => res.json())
+      .then(data => setUsers(data));
+  }, []); // Empty array means fetch only once on mount
+
+  return (
+    <ul>
+      {users.map(user => <li key={user.id}>{user.name}</li>)}
+    </ul>
+  );
+}
+```
 
 ---
